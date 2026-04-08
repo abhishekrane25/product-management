@@ -36,6 +36,7 @@ public class ProductListMenu {
 					}
 					else {
 						System.out.println("ID already exists. Please enter different ID.");
+						break;
 					}
 				}
 				case 2:
@@ -106,7 +107,6 @@ public class ProductListMenu {
 				}
 				//sc.close();
 			}
-				
 		}
 	}
 }
