@@ -7,7 +7,9 @@ public class Product {
 	private String productName;
 	private double price;
 	
-	Product(){}
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	// Getters & Setters 
 	public int getPid() {

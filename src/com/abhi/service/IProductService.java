@@ -9,8 +9,9 @@ public interface IProductService {
 	String addProduct(Product prod);
 	Product getProductById(int pid);
 	List<Product> viewAllProducts();
-	String updateProduct(int pid, Product prod);
+	String updateProduct(int pid, String updatedProductName, double updatedProductPrice);
 	String deleteProduct(int pid);
+	Boolean checkId(int pid);
 	
 	
 }

@@ -13,7 +13,7 @@ public class ProductListMenu {
 		
 		while(true) {
 			Scanner sc = new Scanner(System.in);
-			System.out.println(" 1. Add Product\n 2.View Product By Id\n 3. View All Products\n 4.Delete Product by ID \n Please enter your choice (1-4):");
+			System.out.println(" 1. Add Product\n 2. View Product By Id\n 3. View All Products\n 4. Update Product by ID \n 5. Delete Product by ID \n Please enter your choice (1-5):");
 			int choice = sc.nextInt();
 			
 			switch (choice)
@@ -23,14 +23,20 @@ public class ProductListMenu {
 					System.out.println("--------------- Add Product --------------- ");
 					System.out.println("Enter Product ID:");
 					int pid = sc.nextInt();
+					Boolean checkId = prodImpl.checkId(pid);
+					if(!checkId) {
 					System.out.println("Enter Product Name:");
-					String productName = sc.nextLine();
+					String productName = sc.next();
 					System.out.println("Enter Product Price:");
 					double price = sc.nextDouble();
 					Product prod = new Product(pid, productName, price);
 					String result = prodImpl.addProduct(prod);
 					System.out.println(result);
 					break;
+					}
+					else {
+						System.out.println("ID already exists. Please enter different ID.");
+					}
 				}
 				case 2:
 				{
@@ -53,23 +59,54 @@ public class ProductListMenu {
 					System.out.println("--------------- Update Product --------------- ");
 					System.out.println("Enter Product ID:");
 					int pid = sc.nextInt();
-					System.out.println("1. Update Product Name\n 2. Update Product Price\n Enter choice of update: ");
-					int updateChoice = sc.nextInt();
-					switch (updateChoice) {
-						case 1: 
-						{
-							System.out.println("Enter product name:");
-							String productName = sc.nextLine();
-							
-							String result = prodImpl.updateProduct(pid, productName);
-							
+					System.out.println("\n 1. Update Name\n 2.Update Price\n Enter your choice");
+					int updatedChoice = sc.nextInt();
+					String updatedProductName = "";
+					double updatedProductPrice = 0;
+					switch(updatedChoice) {
+						case 1:{
+							System.out.println("Enter Product Name:");
+							//Scanner name = new Scanner(System.in);
+							updatedProductName = sc.next();
+							updatedProductPrice = 0;
+							String result = prodImpl.updateProduct(pid, updatedProductName, updatedProductPrice);
+							System.out.println(result);
+							//name.close();
+							break;
 						}
+						case 2:{
+							System.out.println("Enter Product Price:");
+							//Scanner price = new Scanner(System.in);
+							updatedProductPrice = sc.nextDouble();
+							updatedProductName = null;
+							String result = prodImpl.updateProduct(pid, updatedProductName, updatedProductPrice);
+							System.out.println(result);
+							//price.close();
+							break;
+						}
+						default: {
+							System.out.println("Invalid Input");
+						}
+					
 					}
+					break;
 				}
-				
+				case 5:
+				{
+					System.out.println("--------------- Delete Product --------------- ");
+					System.out.println("Enter Product ID:");
+					int pid = sc.nextInt();
+					//System.out.println("");
+					String result = prodImpl.deleteProduct(pid);
+					System.out.println(result);
+					break;
+				}
+				default:{
+					System.out.println("Exiting program.");
+				}
+				//sc.close();
 			}
 				
-			
 		}
 	}
 }

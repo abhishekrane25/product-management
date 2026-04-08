@@ -32,15 +32,48 @@ public class ProductServiceImplementation implements IProductService {
 	}
 
 	@Override
-	public String updateProduct(int pid, Product prod) {
-		pl.set(pid, prod);
-		return "Product ID:"+pid+" updated Successfully";
+	public String updateProduct(int pid, String updatedProductName, double updatedProductPrice) {
+		for(Product p: pl)
+		{
+			if(p.getPid()==pid) {
+				if(updatedProductName != null) {
+					p.setProductName(updatedProductName);
+					return "Product ID:"+pid+" updated Successfully";
+				}
+				else if(updatedProductPrice>0) {
+					p.setPrice(updatedProductPrice);
+					return "Product ID:"+pid+" updated Successfully";
+				}
+				else {
+					return "Invalid choice";
+				}
+			}
+			else {
+				return "Product ID not found.";
+			}
+		}
+		return "Invalid Choice 1";
 	}
 
 	@Override
 	public String deleteProduct(int pid) {
-		pl.remove(pid);
-		return "Product ID:"+pid+" deleted Successfully";
+		for(Product p: pl) {
+			if(p.getPid()==pid) {
+				pl.remove(p);
+			}
+			return "Product ID:"+pid+"deleted Successfully";
+		}
+		return "Invalid Product ID";
+	}
+
+	@Override
+	public Boolean checkId(int pid) {
+		for(Product p: pl) {
+			if(p.getPid()==pid) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 
